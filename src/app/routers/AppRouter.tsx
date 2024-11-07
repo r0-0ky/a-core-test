@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { Navigate, createBrowserRouter } from "react-router-dom";
 import { LoginPage } from "../../pages/login-page";
 import { ClassesPage } from "../../pages/classes-page";
 
@@ -10,5 +10,9 @@ export const router = createBrowserRouter([
   {
     path: "/classes",
     element: <ClassesPage />,
+  },
+  {
+    path: '/*',
+    element: <Navigate to='classes' />
   }
 ]);

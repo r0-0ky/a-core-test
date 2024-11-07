@@ -1,11 +1,12 @@
-import { Button, Flex, Input, Select, Skeleton, Space, Tree, TreeProps, Typography } from "antd"
+import { Button, Checkbox, Flex, Input, Select, Skeleton, Space, Table, Tree, TreeProps, Typography } from "antd"
 import { ALL_CLASSSES } from "../../../app/apollo/tree";
 import { useQuery } from "@apollo/client";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ClassesTypes, CurrentClassType } from "./types";
 import classes from './styles.module.scss';
 import cn from 'classnames';
 import findTree from "../../../app/utils/find-tree";
+import { useNavigate } from "react-router-dom";
 
 export const ClassesPage: React.FC = () => {
   const { data, error, loading }  = useQuery<ClassesTypes>(ALL_CLASSSES);
@@ -16,6 +17,52 @@ export const ClassesPage: React.FC = () => {
   const [autoExpandParent, setAutoExpandParent] = useState(true);
   const [selectValueAppended, setSelectValueAppended] = useState();
   const [selectValueLibary, setSelectValueLibary] = useState();
+  const navigate = useNavigate();
+
+  const dataSource = [
+    {
+      key: '1',
+      name: 'Давление номинальное',
+      default: '-',
+      units: '-'
+    },
+    {
+      key: '2',
+      name: 'Пожаробезопасный',
+      default: '-',
+      units: '-'
+    },
+    {
+      key: '3',
+      name: 'Температура среды',
+      default: '-',
+      units: '-'
+    },
+    {
+      key: '4',
+      name: 'Функциональный признак прибора',
+      default: '-',
+      units: '-'
+    },
+  ]
+
+  const columns = [
+    {
+      title: 'Название',
+      dataIndex: 'name',
+      key: 'name',
+    },
+    {
+      title: 'Значение по умолчанию',
+      dataIndex: 'default',
+      key: 'default',
+    },
+    {
+      title: 'Единица измерения',
+      dataIndex: 'units',
+      key: 'units',
+    },
+  ]
 
   const onExpand: TreeProps['onExpand'] = (expandedKeysValue) => {
     setExpandedKeys(expandedKeysValue);
@@ -107,6 +154,14 @@ export const ClassesPage: React.FC = () => {
       return loop(defaultData);
     }
   }, [searchValue, data]);
+
+  useEffect(() => {
+    if (error?.message === "Unauthenticated.") {
+      navigate('/login')
+    }
+  }, [error])
+
+  console.log(data);
   
   return (
     <div className={cn(classes.wrapper)}>
@@ -140,11 +195,11 @@ export const ClassesPage: React.FC = () => {
         <Flex gap={'10px'} style={{ margin: '20px 0 0 0'}} align="end" >
             <Space direction="vertical">
               <Typography.Title style={{margin: 0}} level={5}>Присвоенные: </Typography.Title>
-              <Select onSelect={(value) => setSelectValueAppended(value)} value={selectValueAppended} style={{ width: '200px' }} placeholder='Присвоенные' options={[{ value: 'yes', label: 'Да' }, { value: 'no', label: 'Нет' }]} />
+              <Select onSelect={(value) => value === selectValueAppended ? setSelectValueAppended(undefined) : setSelectValueAppended(value)} value={selectValueAppended} style={{ width: '200px' }} placeholder='Присвоенные' options={[{ value: 'yes', label: 'Да' }, { value: 'no', label: 'Нет' }]} />
             </Space>
             <Space direction="vertical">
               <Typography.Title style={{margin: 0}} level={5}>В библиотеке: </Typography.Title>
-              <Select onSelect={(value) => setSelectValueLibary(value)} value={selectValueLibary} style={{ width: '200px' }} placeholder='В библиотеке' options={[{ value: 'yes', label: 'Да' }, { value: 'no', label: 'Нет' }]} />
+              <Select onSelect={(value) => value === selectValueLibary ? setSelectValueLibary(undefined) : setSelectValueLibary(value)} value={selectValueLibary} style={{ width: '200px' }} placeholder='В библиотеке' options={[{ value: 'yes', label: 'Да' }, { value: 'no', label: 'Нет' }]} />
             </Space>
             <Space style={{width: '100%'}} direction="vertical">
               <Typography.Title style={{margin: 0}} level={5}>Поиск: </Typography.Title>
@@ -154,7 +209,11 @@ export const ClassesPage: React.FC = () => {
         <Typography.Title level={4}>Описание</Typography.Title>
         <Input.TextArea autoSize={{ maxRows: 4, minRows: 4 }} value={currentClass?.description} />
         <Typography.Title level={4}>Свойства</Typography.Title>
+        <Table pagination={false} columns={columns} dataSource={dataSource} />
         <Typography.Title level={4}>Связи</Typography.Title>
+        <Space style={{borderBottom: '1px solid #d9d9d9', width: '100%', padding: '0 0 10px 0'}} direction="vertical">
+          <Checkbox>Название класса</Checkbox>
+        </Space>
       </main>
     </div>
   )

@@ -4,7 +4,7 @@ const findTree = (value: string, tree: CurrentClassType[], res: React.Key[]): Re
   for (const node of tree) {
     if (node.title) {
       const title = node.title as string;
-      if (title.toLowerCase().indexOf(value.toLowerCase()) > -1) {
+      if (title.indexOf(value) > -1) {
         res.push(node.key);
       }
     }
