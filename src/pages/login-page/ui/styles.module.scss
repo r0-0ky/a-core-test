@@ -1,0 +1,48 @@
+.form {
+  border: 1px solid #BCBCBC;
+  border-radius: 6px;
+  padding: 5px 50px 15px 50px;
+  box-shadow: 2px 4px 3px #0000001A;
+}
+
+.formName {
+  text-align: center;
+  font-weight: 700;
+  margin: 20px 0;
+}
+
+.wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+  margin: 0 auto;
+  flex: 1 0 auto;
+  gap: 55px;
+}
+
+.subscription {
+  text-align: center;
+  margin: 0;
+}
+
+.logo {
+  align-self: center;
+  display: inline-block;
+  width: 122px;
+  height: 18px;
+  background: url(../../../assets/logo.svg) center center no-repeat;
+}
+
+.errorMessage {
+  color: red;
+  text-align: center;
+  height: 16px;
+  margin: 5px 0 0 0;
+}

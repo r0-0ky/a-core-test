@@ -1,0 +1,24 @@
+.wrapper {
+  display: grid;
+  grid-template-columns: 25% auto;
+  height: 100vh;
+  overflow: hidden;
+  max-width: 1420px;
+  padding: 0 30px;
+  margin: 0 auto;
+  gap: 90px;
+}
+
+.aside {
+  height: 100%;
+}
+
+.tree {
+  margin-top: 30px;
+  height: calc(100vh - 134px);
+  overflow: auto;
+}
+
+.site-tree-search-value {
+  color: rgb(255, 77, 77);
+}
