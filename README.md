@@ -1,6 +1,6 @@
 # С-CORE-TEST 🌱
 
-Fackend application with controled tree  
+Frontend application with controled tree  
 
 ## Installation
 
