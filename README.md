@@ -1,7 +1,6 @@
 # С-CORE-TEST 🌱
 
 Fackend application with controled tree  
-Link - [Click](http://cutletka.ru:2300/)
 
 ## Installation
 
