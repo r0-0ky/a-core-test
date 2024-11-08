@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 export const ClassesPage: React.FC = () => {
   const { data, error, loading }  = useQuery<ClassesTypes>(ALL_CLASSSES);
   const [currentClass, setCurrentClass] = useState<CurrentClassType | undefined>(undefined);
-  const [expandedKeys, setExpandedKeys] = useState<React.Key[]>(['24473']);
+  const [expandedKeys, setExpandedKeys] = useState<React.Key[]>([]);
   const [selectedKeys, setSelectedKeys] = useState<React.Key[]>([]);
   const [searchValue, setSearchValue] = useState('');
   const [autoExpandParent, setAutoExpandParent] = useState(true);
@@ -140,11 +140,12 @@ export const ClassesPage: React.FC = () => {
               <span key={item.key}>{strTitle}</span>
             );
           if (item.children) {
-            return { title, key: item.key, children: loop(item.children), description: item.description };
+            return { title, strTitle, key: item.key, children: loop(item.children), description: item.description };
           }
   
           return {
             title,
+            strTitle,
             key: item.key,
             description: item.description
           };
@@ -212,7 +213,7 @@ export const ClassesPage: React.FC = () => {
         <Table pagination={false} columns={columns} dataSource={dataSource} />
         <Typography.Title level={4}>Связи</Typography.Title>
         <Space style={{borderBottom: '1px solid #d9d9d9', width: '100%', padding: '0 0 10px 0'}} direction="vertical">
-          <Checkbox>Название класса</Checkbox>
+          <Checkbox>{currentClass?.strTitle}</Checkbox>
         </Space>
       </main>
     </div>

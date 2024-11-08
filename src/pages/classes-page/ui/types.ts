@@ -31,4 +31,5 @@ export interface ClassesTypes {
 
 export interface CurrentClassType extends DataNode {
   description?: string
+  strTitle?: string
 }
