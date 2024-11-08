@@ -161,8 +161,6 @@ export const ClassesPage: React.FC = () => {
       navigate('/login')
     }
   }, [error])
-
-  console.log(data);
   
   return (
     <div className={cn(classes.wrapper)}>
